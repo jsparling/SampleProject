@@ -26,9 +26,16 @@ export default class SampleProject extends Component {
 
   // Action that is called when button is pressed
   retrieveData() {
-    returnText = sampleApi.get()
-    // returnText = 'jake'
-    this.setState({textToDisplay: returnText})
+    sampleApi.get().then(resp => {
+      tempText = ""
+      // we will get an array back, so loop through it
+      resp.forEach(function(pet) {
+        tempText += JSON.stringify(pet) + "\n"
+      })
+
+      // update our state to include the new text
+      this.setState({textToDisplay: tempText})
+    })
   }
 
   render() {
